@@ -1,3 +1,4 @@
+package datastructures;
 
 /**
  * A simple stack interface

@@ -1,3 +1,6 @@
+package datastructures;
+
+import java.util.NoSuchElementException;
 
 /**
  * An implementation of a singly linked list using the ListElement class
@@ -39,15 +42,20 @@ public class LinkedList {
 	 * 
 	 * @return {@link ListElement}
 	 */
-	public ListElement deleteFirst(){
+	public ListElement deleteFirst() {
+		if(this.size==0){
+			throw new NoSuchElementException("The list is empty");
+		}
 		ListElement temp = this.head;
 		this.head = this.head.next;
+		this.size--;
 		return temp;
 	}
 	
 	/**
 	 * Method to return the element at the beginning of the list.
-	 * @return
+	 * 
+	 * @return {@link ListElement}
 	 */
 	public ListElement getFirst(){
 		return this.head;
@@ -63,6 +71,56 @@ public class LinkedList {
 			temp.displayListElement();
 			temp=temp.next;
 		}
+	}
+	
+	/**
+	 * Method which checks if the passed object is present in the list.
+	 * Returns true if present else false.
+	 * 
+	 * @param data
+	 * @return boolean
+	 */
+	public boolean find(Object data){
+		ListElement current = this.head;
+		while(current!= null && current.data!=data){
+			current=current.next;
+		}
+		return (current!=null);
+	}
+	
+	
+	/**
+	 * Method to delete a specific element from the list.
+	 * 
+	 * @param data
+	 */
+	public void deleteElement(Object data){
+		ListElement current = this.head;
+		ListElement prev = null;
+		
+		// If the element to be removed is in the first position
+		// and nullify current for it to be garbage collected.
+		if(current.data==data){
+			this.head = current.next;
+			current = null;
+		}
+		
+		// Traverse the list while keeping track of the previous element.
+		while(current!=null && current.data!=data){
+			prev = current;
+			current = current.next;
+		}
+		
+		// If current reached null the given object is not present in the list
+		if(current==null){
+			System.out.println("The given object is no present in the list");
+		}
+		
+		// Point the previous element to the current element's next
+		prev.next = current.next;
+		
+		// Nullify current for it to be garbage collected.
+		current=null;
 	}
 	
 	/**
@@ -85,7 +143,6 @@ public class LinkedList {
 		ListElement pop1 = test.deleteFirst();
 		System.out.println("\nList after popping: "+pop1.data);
 		test.printList();
-		
 	}
 	
 	//

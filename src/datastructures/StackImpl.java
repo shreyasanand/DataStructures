@@ -1,3 +1,6 @@
+package datastructures;
+
+import java.util.EmptyStackException;
 
 /**
  * An implementation of the Stack interface as a wrapper around the LinkedList
@@ -6,7 +9,7 @@
  * @author shreyas
  *
  */
-public class StackImpl implements Stack{
+public class StackImpl implements Stack {
 
 	//
     //
@@ -22,14 +25,23 @@ public class StackImpl implements Stack{
     //
     //
 	public void push(Object item) {
+		if(item==null) {
+			throw new NullPointerException("Cannot push null");
+		}
 		this.list.insertFirst(item);
 	}
 
 	public Object pop() {
+		if(this.list.getSize()==0){
+			throw new EmptyStackException();
+		}
 		return this.list.deleteFirst();
 	}
 
 	public Object peek() {
+		if(this.list.getSize()==0){
+			throw new EmptyStackException();
+		}
 		return this.list.getFirst();
 	}
 
